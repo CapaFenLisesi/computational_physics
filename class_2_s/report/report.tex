@@ -1,0 +1,88 @@
+\documentclass[aps,pra]{revtex4}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb,amsmath,subfigure,float,array,makecell,booktabs}
+\usepackage[colorlinks,linkcolor=blue,anchorcolor=blue,citecolor=blue,urlcolor=red]%
+{hyperref}
+%\date{}							% Activate to display a given date or no date
+
+\begin{document}
+\title{%Assignment Report
+Unknown}
+\author{Ze-Yang Li}
+\affiliation{School of Physics, Peking University, Beijing 100871, P. R. China, }
+\begin{abstract}
+In this report I briefly present the results of pressure-time curve simulation, pressure-volume curve simulation of Lennard-Jones potential based on package \texttt{lammps}\cite{plimpton1995fast}. A different pressure-volume feature with respect to temperature chosen is observed, indicating a phase transition at the critical temperature. 
+\end{abstract}
+\maketitle
+\section{Introduction}
+
+The Lennard-Jones potential is given by
+\[U(r) = 4\varepsilon\left\{\left[\frac{\sigma}{r}\right]^{12}-\left[\frac{\sigma}{r}\right]^{6}\right\} \]
+with rescaled parameter
+\[T^* = k_BT/\varepsilon,\quad \rho^*=\rho\sigma^3,\quad p^*=p\sigma^3/\varepsilon \]
+
+I choose $\sigma=1, \varepsilon=1$ with a cutoff to save computation resource
+\[U(r) = \begin{cases}4\varepsilon\left\{\left[\displaystyle\frac{\sigma}{r}\right]^{12}-\left[\displaystyle\frac{\sigma}{r}\right]^{6}\right\}\ \Longrightarrow\ 4\left\{\left[\displaystyle\frac{1}{r}\right]^{12}-\left[\displaystyle\frac{1}{r}\right]^{6}\right\} & r<\text{cutoff}=2.5\\ & \\ \phantom{\to4\varepsilon\left\{\left[\displaystyle\frac{\sigma}{r}\right]^{12}-\left[\displaystyle\frac{\sigma}{r}\right]^{6}\right\}}0 &\text{otherwise}\end{cases} \]
+
+\section{Pressure-time results}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[height = .235\textwidth]{./../Fig1.pdf}\ \ \ \ \ 
+\includegraphics[height = .235\textwidth]{./../Fig2.pdf}
+\end{center}
+\caption{(a) Pressure-time results for different initial-set temperature with same density (volume), (b) the equilibrium is examined by the temperature-time simulation}\label{Fig1}
+\end{figure}
+
+Here I present the simulation results of pressure-time curve, where an equilibrium is observed as expected (Fig.~\ref{Fig1}). I here define a parameter of the validity of the results. First we define an average of pressure while dropping calculations of first $t$ from total $\tau$ simulation results
+\[Q(t) = \frac{1}{\tau-t}\int_t^\tau p(t')dt',\quad t<\tau \]
+where the validity is defined as mean deviation of the function (sequence as discrete time point)
+\[v = \frac{|\langle Q(t)-\bar{Q}\rangle|}{|\bar{p}|} \]
+
+\section{Pressure-volume result}
+
+By varying the density $\rho$ the volume $V=1/\rho$ is obtained, the relation between pressure and volume as well. It is shown in Fig.~\ref{Fig2} that at low temperature the pressure-temperature is not continuous, and there exists a sharp jump at some particular volume, indicating a phase transition. At high temperature, this sharp noncontinuity vanishes as expected (like critical point for water's liquid-gas phase transition). 
+
+\begin{figure}
+\begin{center}
+\includegraphics[height = .235\textwidth]{./../Fig3-1.pdf}\ \ \ \ \ \ \ \ 
+\includegraphics[height = .235\textwidth]{./../Fig3-2.pdf}
+\end{center}
+\caption{(a) ListpLinePlot and (b) ListPlot of pressure-volume simulation result for different temperature $T=0.5, 0.9, 1.3, 1.8, 3$. The phase transition happens only if $T<T_c$, where $T_c\approx 1.3$ in this case ($1.326\pm0.002$ in \cite{caillol1998critical}). Different temperature has different phase transition volume, which for $T=0.5, V_c\sim1.2;\ T=0.9, V_c\sim1.1\text{ and } T=1.3, V_c\sim1.0$. Besides, for ultra low temperature, the detailed fluctuation and positive correlation between pressure and volume is observed in $T=0.5$. }\label{Fig2}
+\end{figure}
+
+\appendix
+\section{Validity examination}
+\begin{figure}[h]
+\begin{center}
+\includegraphics[height = .235\textwidth]{./../Figap1.pdf}\ \ \ \ \ \ \ \ \ \ \ \ \ \ 
+\includegraphics[height = .235\textwidth]{./../Figap2-2.pdf}%\\
+%\includegraphics[height = .45\textwidth]{./../Figap3.pdf}
+\end{center}
+\caption{(a) Example of $Q(t)$ with validity $v=0.00161451\ll1$. In this case, $\rho=2.0, T=0.5$, (b) validity $v$ of different volume $V$ at $T=0.5$, %(c) 
+inset shows an extraordinary large $v$ at $\rho=1.0$ case's $p(t)$ figure. The final estimation of $\bar p$ is somehow questionable. }
+\end{figure}
+
+\section{Sampling method}
+
+I chose $\rho$ in the Table.~\ref{Table1} to achieve the goal of covering almost every physically significant region, where the phase transition volume is changed as a function of temperature is not considered. 
+\begin{table}
+\begin{tabular}{cc|c|c|c|c|c|c|c|c|c|cc}
+\Xhline{2\arrayrulewidth}
+& 0.5 & 0.53 & 0.56 & 0.59 & 0.63 & 0.67 & 0.71 & 0.77 & 0.78 & 0.79 & 0.8 & \\
+\hline 
+& 0.81 & 0.82 & 0.83 & 0.84 & 0.85 & 0.86 & 0.87 & 0.88 & 0.881 & 0.885 & 0.89 & \\
+\hline 
+& 0.903 & 0.905 & 0.91 & 0.93 & 0.95 & 1.0 & 1.11 & 1.25 & 1.43 & 1.67 & 2.0 & \\
+\Xhline{2\arrayrulewidth}\end{tabular}
+\caption{Range of $\rho$. }\label{Table1}
+\end{table}
+
+
+
+
+\bibliographystyle{apsrev}
+\bibliography{ref}
+
+
+\end{document}  

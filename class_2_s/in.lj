@@ -1,0 +1,29 @@
+# equation of state for LJ
+
+variable temp equal 3
+variable rho  equal 0.78
+
+units lj
+atom_style atomic
+
+lattice    fcc ${rho}
+region box block 0 5 0 5 0 5
+create_box 1 box
+create_atoms 1 box
+mass       1 1.0
+
+pair_style lj/cut 2.5
+pair_coeff 1 1 1.0 1.0 2.5
+
+velocity   all create ${temp} 87287
+
+neighbor   0.3 bin
+neigh_modify every 20 delay 0 check no
+
+fix        1 all nvt temp ${temp} ${temp} 100
+dump       1 all custom 70000 dump_t${temp}_r${rho}.lammpstrj id type x y z
+thermo     2000
+thermo_style  custom step press vol temp 
+thermo_modify flush yes
+
+run 500000

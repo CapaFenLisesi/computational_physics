@@ -1,0 +1,25 @@
+\begin{thebibliography}{2}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname bibnamefont\endcsname\relax
+  \def\bibnamefont#1{#1}\fi
+\expandafter\ifx\csname bibfnamefont\endcsname\relax
+  \def\bibfnamefont#1{#1}\fi
+\expandafter\ifx\csname citenamefont\endcsname\relax
+  \def\citenamefont#1{#1}\fi
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\providecommand{\bibinfo}[2]{#2}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem[{\citenamefont{Plimpton}(1995)}]{plimpton1995fast}
+\bibinfo{author}{\bibfnamefont{S.}~\bibnamefont{Plimpton}},
+  \bibinfo{journal}{Journal of computational physics}
+  \textbf{\bibinfo{volume}{117}}, \bibinfo{pages}{1} (\bibinfo{year}{1995}).
+
+\bibitem[{\citenamefont{Caillol et~al.}(1998)}]{caillol1998critical}
+\bibinfo{author}{\bibfnamefont{J.}~\bibnamefont{Caillol}} \bibnamefont{et~al.},
+  \bibinfo{journal}{Journal of Chemical Physics}
+  \textbf{\bibinfo{volume}{109}}, \bibinfo{pages}{4885} (\bibinfo{year}{1998}).
+
+\end{thebibliography}
